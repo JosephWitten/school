@@ -1,5 +1,6 @@
-# 9th September Notes.
+# 9th September Notes onwards - returns
 ## homework: Q1) Q3) Q4) Q5) for friday (diminishing returns paper)
+## homework: Page 21-24 for tuesday
 ---
 when marginal > average, average increases.
 
@@ -16,11 +17,47 @@ $m > a, a -  increases$
 
 **The law of diminishing returns**  is when a variable factor, eg labour, is added to a fixed factor, eg capital, the marginal product and <u>eventually</u> the average product will fall. *therefore* the marginal cost and <u>eventually</u> the average cost will rise.
 
-```
-output
-|
-|
-|
-|
-|________________
-```
+<font size=5>
+
+$Average \space returns = \frac{total \space product}  {variable \space factor}$
+
+</font>
+
+**Returns to scale** is a long run equivilent of diminishing marginal reutrns
+
+**Increasing returns to scale** is $\%change \space inputs < \%change \space in \space outputs$ 
+
+**Decreasing returns to scale** is $\% \space change \space in \space inputs > \% \space change \space in \space output$ 
+- can happen due to bad communications between global firms
+
+**Constant returns to scale**  is when you have minimised long run costs.
+
+Returns of scale <u>causes</u> dis/economies of scale. They are not the same.
+
+![](images.jpeg)
+
+Types of economies of scale:
+- managerial (good managers)
+- technical (efficient machines)
+- risk-bearing (exploring new markets)
+- marketing (one advert advertises more shops)
+- financial (banks trust you more, to big to fail)
+- productive (more produced, reduces the effect of fixed cost)
+- purchasing (buying in bulk)
+
+## Long run production theory
+
+firms can increase output in short run by adding more of the variable factor of production
+
+![](index.jpeg)
+
+The long run average cost curve (LRAC) is made up of many instances of the short run average cost curve (SRAC)
+
+- The SRAC crurve show diminishing returns in the short run
+- The LRAC curve shows economies/diseconomies of scale in the long run
+
+Popular essay question is how can you achieve diminishing returns in the SR but economies of scale in the LR
+- cuts the upward sloping part of the SR curve, but continues to go down the LR curbe
+
+## Costs
+
