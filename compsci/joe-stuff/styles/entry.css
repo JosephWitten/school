@@ -1,0 +1,98 @@
+.entry {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.entry .bg img{
+  filter: blur(10px);
+  position: absolute;
+  left: -5%;
+  top: -5%;
+  width: 110%;
+  height: 110%;
+  object-position: center;
+  object-fit: cover;
+}
+
+.entry .fg{
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.entry .fg form{
+  padding: 60px;
+  width: 500px;
+  border-radius: 10px;
+  background-color: #fff;
+}
+
+.entry .fg form h1{
+  width: 100%;
+  text-align: center;
+  font-size: 40pt;
+  margin: 0 0 50px 0;
+  opacity: 0.8;
+}
+
+.entry .fg form span{
+  display: inline-block;
+  width: 100%;
+  position: relative;
+  font-size: 15pt;
+}
+
+.entry .fg form span  a{
+  color: #1eaa27;
+}
+
+.entry .fg form input{
+  width: 100%;
+  box-sizing: border-box;
+  border-width: 0;
+  border-radius: 10px;
+  background-color: #ebedf7;
+  margin-bottom: 25px;
+  padding: 14px 25px;
+  font-size: 20pt;
+}
+
+.entry .fg form input[type='submit']{
+  cursor: pointer;
+  margin-top: 25px;
+  background-color: #1eaa27;
+  color: #fff;
+}
+
+
+@media only screen and (max-width: 768px) {
+  .bg{
+    display: none;
+  }
+
+  .entry .fg form{
+    padding: 30px;
+    width: 100%;
+    border-radius: 0;
+  }
+
+  .entry .fg form input{
+    padding: 12px 25px;
+    font-size: 16pt;
+  }
+
+  .entry .fg form h1{
+    font-size: 30pt;
+  }
+
+  span{
+    text-align: center;
+  }
+}
