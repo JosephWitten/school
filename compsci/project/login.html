@@ -3,29 +3,28 @@
 <head>
     <!-- Metadata about the page -->
     <title>Login</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
     <div class="log-bg">
-        <div class="log-main">
+        <img src="assets/bg.jpeg">
+    </div>
+    <div class="log-fg">
             <div class="log-title">Log in</div>
                 <div class="log-inp">     
-                    </b>    
-                    </label>    
-                    <input type="text" name="Uname" id="Uname" placeholder="Username">    
-                    <br><br>     
-                    </b>    
-                    </label>    
-                    <input type="Password" name="Pass" id="Pass" placeholder="Password">    
-                    <br><br>      
+                    <form>
+                        <input class="username" placeholder="Username"></input><br><br>    
+                        <input type="password" class="password" placeholder="Password"></input><br><br>  
+                        <input type="submit" value="Login"></input><br><br>  
+                        <span>Need an account? <a href="signup.html">Register</a></span>
+                      </form>    
+                      <span id="error" class="error">Error: you fucked up, good job</span>
                 </div>
-        </div>
         
-        <div class="log-buttons-cont">
-            <div class="log-button-in">Log in</div>
-            <div class="log-button-up">Sign up</div>
-        </div>
+
     </div>
 
 </body>
