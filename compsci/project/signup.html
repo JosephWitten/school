@@ -2,11 +2,32 @@
 
 <head>
     <!-- Metadata about the page -->
-    <title>Signup</title>
+    <title>Sign up</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-
-</body>
+    <!-- Background image-->
+    <div class="log-bg">
+        <img src="assets/bg.jpeg">
+    </div>
+    <!-- Foreground wrapper-->
+    <div class="log-fg">
+            <!-- Sign up form-->
+            <div class="log-title">Log in</div>
+                <div class="log-inp">     
+                    <form>
+                        <input class="username" placeholder="Username"></input><br><br>    
+                        <input type="password" class="password" placeholder="Password"></input><br><br> 
+                        <input type="password" class="password" placeholder="Repeat Password"></input><br><br> 
+                        <input type="submit" value="Sign up"></input><br><br>  
+                        <span>Already have an account? <a href="login.html">Register</a></span>
+                      </form>    
+                      <span id="error" class="error">Error: you fucked up, good job</span>
+                </div>
+            </div>
+    </body>
 
 </html>

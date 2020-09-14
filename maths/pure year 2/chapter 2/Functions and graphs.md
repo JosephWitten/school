@@ -1,7 +1,7 @@
 # Functions and graphs
 
 
-A modulus function is in geeral, a functio of tge type
+A modulus function is in general, a function of the type
 
 <font size=3>
 
