@@ -37,3 +37,15 @@ what is the purchasing type of economies of scale, buying in bulk to reduce purc
 The SRAC curve shows what, diminishing returns in the short run,
 
 The LRAC curve shows what, economies/diseconomies of scale in the long run,
+
+What are comodities, the technical name for raw materials,
+
+What is stepped fixed cost, when fixed cost increases vertically because the fixed capital cannot accomidate the increasing variable factor so new infrastructure/capital must be put in place to produce more,
+
+Total cost = ?, Fixed cost + variable cost,
+
+Average cost = ?, total cost / Quantity,
+
+Marginal cost = ?, change in total cost / change in quantity,
+
+What is marginal cost, the extract cost endured when an aditional unit of a variable factor of production is added,
