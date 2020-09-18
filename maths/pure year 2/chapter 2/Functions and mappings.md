@@ -18,3 +18,4 @@ For a mapping to be a function, every input in the domain must map onto exactly 
 - many-to-one
 
 a **domain** is the possibilities that x could be
+
