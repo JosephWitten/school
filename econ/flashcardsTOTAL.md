@@ -49,3 +49,30 @@ Average cost = ?, total cost / Quantity,
 Marginal cost = ?, change in total cost / change in quantity,
 
 What is marginal cost, the extract cost endured when an aditional unit of a variable factor of production is added,
+
+what is opportunity cost, the required rate of return that keeps a firm in the market,
+
+what is normal profit, the minimum profit required to keep surviving,
+
+what two things does profit act as?, an incentive and a signal,
+
+what is Super Normal Profit?, any profit earned above normal profit,
+
+For normal profit TR=? and AR=?, TR=TC and AR=AC,
+
+what does non-axiamatic mean, the curve or value will never go below zero,
+
+what does non-satiety mean, you can never have enough of something,
+
+what is average cost, the cost per unit,
+
+what is marginal physical product, the change in output resulting from employing one more unit of variable input,
+
+Average revenue = ?, Total revenue / quantity,
+
+Marginal revenue = ?, change in total revenue / change in quantity,
+
+When is total revenue maximised, when you have unitary elasticity of demand,
+
+What is total cost?, fixed costs variable costs and opportunity costs,
+

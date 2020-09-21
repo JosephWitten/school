@@ -107,7 +107,7 @@ $3n(n-1)(\frac{-2}{n^2}) = 14$
 
 
 
-</fomt>
+</font>
 
 --- 
 ## HW is Ex4c, 1a, 2a, 3a, 4a
