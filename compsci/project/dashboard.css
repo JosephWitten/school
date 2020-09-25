@@ -1,7 +1,17 @@
 :root {
+    /*Light theme*/
     --bg-color-white-theme: #ebf7fa;
+    --mid-color-white-theme: #cccccc;
+    --fg-color-white-theme: #969e9d;
     --font-color-white-theme: #000000;
-    --button-color: #aaaaaa
+    --button-color-white-theme: #dddddd;
+
+    /*Dark theme*/
+    --bg-color-dark-theme: #363636; 
+    --mid-color-dark-theme: #212020;
+    --fg-color-dark-theme: #5e5e5e;
+    --font-color-dark-theme: #aaaaaa;
+    --button-color-dark-theme: #4f4343;
 }
 
 body {
@@ -9,7 +19,7 @@ body {
 }
 
 .toolbar {
-    background-color: greenyellow;
+    background-color: var(--mid-color-white-theme);
     height: 10%;
     width: 100%;
     top: 0%;
@@ -17,7 +27,7 @@ body {
 }
 
 .sidebar {
-    background-color: green;
+    background-color: var(--fg-color-white-theme);
     height: 90%;
     width: 30%;
     left: 70%;
@@ -26,16 +36,15 @@ body {
 }
 
 .graph {
+    background-color: var(--bg-color-white-theme);
     height: 90%;
     width: 70%;
     top: 10%;
-    background-color: teal;
     position: absolute;
 }
 
 .wrapper {
     position: relative;
-    background-color: violet;
     height: 100%;
     width: 100%;
     padding: 0%;
@@ -46,10 +55,10 @@ body {
     height: 100%;
     width: 10%;
     text-align: center;
-    border-style: solid;
+    border-style: none solid none none;
     border-width: 1px;
     vertical-align: middle;
-    line-height: 300%;
+    line-height: 350%;
 }
 
 .theme {
@@ -58,10 +67,10 @@ body {
     width: 10%;
     left: 10%;
     text-align: center;
-    border-style: solid;
+    border-style: none solid none none;
     border-width: 1px;
     vertical-align: middle;
-    line-height: 300%;
+    line-height: 350%;
 }
 
 .play {
@@ -70,10 +79,10 @@ body {
     width: 10%;
     left: 20%;
     text-align: center;
-    border-style: solid;
+    border-style: none solid none none;
     border-width: 1px;
     vertical-align: middle;
-    line-height: 300%;
+    line-height: 350%;
 }
 
 .sell {
@@ -114,22 +123,24 @@ input {
 }
 
 .dasherror {
+    line-height: 50px;
     color: red;
     width: 80%;
     height: 10%;
     text-align: center;
-    background-color: saddlebrown;
+    background-color: var(--mid-color-white-theme);
     position: absolute;
     bottom: 30%;
     left: 10%;
 }
 
 .out {
-    background-color: royalblue;
+    background-color: var(--mid-color-white-theme);
     text-align: center;
     position: absolute;
     width: 80%;
     height: 10%;
     bottom: 10%;
     left: 10%;
+    line-height: 20px
 }
