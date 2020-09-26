@@ -1,16 +1,15 @@
 const fs = require("fs");
 const express = require("express");
 const http = require("http");
+const app = express();
+const path = require("path");
 
+app.use(express.static("public"))
 
-var server = http.createServer(function(req, res) {
-    res.writeHead(200, {
-        "Content-Type": "text/html"
-    });
-        res.write("One cool test!")
-        res.end();
-});
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname + "/public/login.html"))
+})
 
-server.listen(8080, function() {
-    console.log("Listening on 8080");
-});
+app.listen(8080, () => {
+    console.log("Listening on localhost:8080")
+})
