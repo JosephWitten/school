@@ -14,5 +14,8 @@ loginButton.addEventListener("click", function(e) {
     fetch("/logmeinplease", {method: "POST", headers : headers,  body: data})
     .then(function(response) {
         console.log(response.status)
-    }).catch(err => console.log(err))
+        if (response.status == 400) {            
+            window.location.href = "./loginERR.html" 
+        }
+    }).catch(err => console.log("ERROR" + err))
 })
