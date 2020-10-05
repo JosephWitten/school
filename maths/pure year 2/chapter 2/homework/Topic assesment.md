@@ -51,15 +51,27 @@ domain is when $x \in \mathbb{R}$
 
 i) sketch the graph $y = |2x+1|$
 
-![](graph1.png)
+![](graph.jpg)
 
 ii)
 a) $|2x + 1| = 3-x$
 
+$2x + 1 = 3-x$
+
+$3x = 2$
+
+$x = \frac{2}{3}$
+
+$y = \frac{7}{3}$
+
 
 b) $|2x + 1| = 3x -2$
 
+$2x + 1 = 3x -2$
 
+$x = 3$
+
+$y = 7$
 
 3)
 i) 
@@ -71,4 +83,33 @@ range is $y < 0$ and $x > 0$
 ii)
 
 $f^{-1}(x) = \frac{-1}{x-1}$
+
+iii)
+
+domain is when $x \neq 1$
+
+range is $\in \mathbb{R}$
+
+iv)
+
+![](graph2.jpg)
+
+v) The same except the first one has a asympote of y = 1, and the inverse has an asymptote of y = -1
+
+4)
+
+![](graph3.jpg)
+
+5)
+i)
+
+$|3x-2| \leq 4$
+
+$3(4)-2 = 10$
+
+$-(3(4)-2) = -10$
+
+$x < -10$ or $x > 10$
+
+ii)
 
