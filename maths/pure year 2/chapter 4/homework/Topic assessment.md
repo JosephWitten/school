@@ -76,7 +76,88 @@ $\frac{6}{9x^2-1} = \frac{3}{(3x-1)} + \frac{-3}{(3x+1)}$
 
 5) Given that $\frac{x+15}{(x-1)(x+3)} \equiv \frac{A}{x-1} + \frac{B}{x+3}$ find values for A and B
 
+<font size=5>
+
+$\frac{x+15}{(x-1)(x+3)} \equiv \frac{A}{x-1} + \frac{B}{x+3}$
+
+$x+15 = A(x+3) + B(x-1)$
+
+sub x = 1
+
+$1 + 15 = 4A$
+
+$A = 4$
+
+sub x = -3
+
+$-3 + 15 = -4B$
+
+$B = -3$
+
+</font>
+
 6) Divide $\frac{x^2-3x-4}{x^2-25}$ by $\frac{x+1}{x-5}$
+
+<font size=5>
+
+$\frac{x^2-3x-4}{x^2-25} \div \frac{x+1}{x-5}$
+
+$\frac{x^2-3x-4}{x^2-25} \times \frac{x-5}{x+1}$
+
+$\frac{(x-4)(x+1)}{(x+5)(x-5)} \times \frac{x-5}{x+1}$
+
+$\frac{(x-4)1}{(x+5)1} \times \frac{1}{1}$
+
+$\frac{(x-4)}{(x+5)}$
+
+</font>
 
 7) Divide $x^3 -2x^2 + 3$ by $x+3$
 
+<font size=5>
+
+$(x^3 -2x^2 + 3) \div (x+3)$
+
+![](poly.jpg)
+
+$(x^3 -2x^2 + 3) \div (x+3) = x^2 -5x + 15 - \frac{42}{x+3}$
+
+</font>
+
+8) $\frac{1+x}{1-2x}$ is approximately equal to $1+ax+bx^2$. Find the values of a and b
+
+<font size=5>
+
+$\frac{1+x}{1-2x} = 1+ax+bx^2$
+
+$1+x = (1-2x)1+ax+bx^2$
+
+$1+x = 1 + ax + bx^2 -2x -2ax^2 -2bx^3$
+
+$0 =ax + bx^2 -3x -2ax^2 - 2bx^3$
+
+
+</font>
+
+9) i) Write $\frac{9}{(1-x)(1+2x)^2}$ as partial fractions
+- ii) Using you answer to part (i), expand $\frac{9}{(1-x)(1+2x)^2}$ up to and including the term in x^2, stating the range of values for which your expansion is valid
+
+<font size =5>
+
+i) $\frac{9}{(1-x)(1+2x)^2} = \frac{A}{1-x} + \frac{B}{1+2x} + \frac{C}{(1+2x)^2}$
+
+$9 = A(1+2x)(1+2x)^2 + \frac{B(1-x)(1+2x)^2}{1+2x} + \frac{C(1-x)(1+2x)}{(1+2x)^2}$
+
+$9 = A(1+2x)(1+2x)^2 + B(1-x)(1+2x) + C(1-x)(1+2x)^{-1}$
+
+sub x = 1
+
+$9 = A(1+2(1))(1+2(1))^2$
+
+$9 = 27A$
+
+$A = \frac{1}{3}$
+
+
+
+</font>
