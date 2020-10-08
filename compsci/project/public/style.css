@@ -89,6 +89,7 @@ input[type="submit"]{
 
 .error {
     color: red;
+    visibility: hidden
 }
 
 a {
