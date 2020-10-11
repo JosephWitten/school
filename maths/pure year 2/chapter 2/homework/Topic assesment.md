@@ -14,7 +14,7 @@ $fg(x) = e^{\sqrt{x}}$
 
 domain is when $x \in \mathbb{R}$ and $x \geq 0$ 
 
-range is $\geq 1$
+range is $x \geq 1$
 
 ii)
 
@@ -22,7 +22,7 @@ $gh(x) = \sqrt{2x+1}$
 
 domain is when $x \in \mathbb{R}$ and $x \geq -0.5$
 
-range is $-$
+range is $x \geq 0$
 
 iii) 
 
@@ -30,7 +30,7 @@ $hf(x) = 2e^x + 1$
 
 domain is when $x \in \mathbb{R}$
 
-range is $-$
+range is $x > 0$
 
 iv)
 
@@ -38,7 +38,7 @@ $f^{-1}(x) = ln (x)$
 
 domain is when $x \in \mathbb{R}$
 
-range is $-$
+range is $x > 0$
 
 v)
 
@@ -46,6 +46,7 @@ $h^{-1}(x) =\frac{x-1}{2}$
 
 domain is when $x \in \mathbb{R}$
 
+range is when $x \in \mathbb{R}$
 
 2)
 
@@ -78,7 +79,7 @@ i)
 
 domain is when $x > 0$
 
-range is $y < 0$ and $x > 0$
+range is $y < 1$ 
 
 ii)
 
@@ -112,4 +113,5 @@ $-(3(4)-2) = -10$
 $x < -10$ or $x > 10$
 
 ii)
+
 
