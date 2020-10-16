@@ -1,4 +1,11 @@
 let loginButton = document.getElementById("LoginButton");
+let loginPassword = document.getElementById("LoginPassword");
+
+loginPassword.addEventListener("keypress", function (e) {
+    if (e.key == "Enter") {
+        check()
+    }
+})
 
 loginButton.addEventListener("click", function(e) {
     check()
@@ -17,12 +24,12 @@ function check() {
     data = JSON.stringify(data)
     fetch("/logmeinplease", {method: "POST", headers : headers,  body: data})
     .then(function(response) {
-        console.log(response.status)
+        console.log(response)
         if (response.status == 400) {            
             document.getElementById("error").style.visibility = "visible"
         } else {
             document.getElementById("error").style.visibility = "hidden"
-            document.cookie = "username=" + document.getElementById("LoginUsername").value;
+            document.cookie = "sesh=" + response.biscuit;
         }
     }).catch(err => console.log("ERROR" + err))
 }

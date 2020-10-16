@@ -46,9 +46,12 @@ app.post("/logmeinplease", (req, res) => {
         let query = { username: req.body.username, password: req.body.password}
         users.collection("accounts").find(query).toArray(function(err, result) {
             if (err) throw err;
+            
             if (result.length == 1) {
                 console.log("Entry found")
-                res.sendStatus(301)
+                let cookie = createCookie(result[0].username, result[0].password)
+                console.log(cookie)
+                res.send(cookie)
             } else {
                 console.log("No users");
                 res.sendStatus(400)
@@ -57,3 +60,7 @@ app.post("/logmeinplease", (req, res) => {
         })
     })
 })
+
+function createCookie(username, password) {
+    return Buffer.from(username + ":" + password).toString('base64')
+}
