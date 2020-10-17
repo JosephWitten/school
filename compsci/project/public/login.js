@@ -29,7 +29,8 @@ function check() {
             document.getElementById("error").style.visibility = "visible"
         } else {
             document.getElementById("error").style.visibility = "hidden"
-            document.cookie = "sesh=" + response.biscuit;
+            
         }
     }).catch(err => console.log("ERROR" + err))
 }
+
