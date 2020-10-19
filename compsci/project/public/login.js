@@ -29,7 +29,7 @@ function check() {
             document.getElementById("error").style.visibility = "visible"
         } else {
             document.getElementById("error").style.visibility = "hidden"
-            
+            window.location = "/dashboard.html"
         }
     }).catch(err => console.log("ERROR" + err))
 }
