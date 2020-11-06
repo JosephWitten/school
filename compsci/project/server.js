@@ -8,7 +8,10 @@ const MongoClient = require("mongodb").MongoClient;
 const cors = require("cors")
 const bodyParser = require('body-parser')
 let db;
-const url = "mongodb+srv://Admin:Qwerty123@programmingproject.ygawp.mongodb.net/users?retryWrites=true&w=majority"
+//const url = "mongodb+srv://Admin:Qwerty123@programmingproject.ygawp.mongodb.net/users?retryWrites=true&w=majority"
+const url = "mongodb://localhost:27017/mydb";
+
+printDB();
 
 //Setting cross origin headers
 app.use(cors())
@@ -35,6 +38,19 @@ app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname + "/public/login.html"))
 })
 
+function printDB() {
+    MongoClient.connect(url, { useUnifiedTopology: true }, function(err, db) {
+        if (err) throw err;
+        
+        var users = db.db("users")
+        users.collection("accounts").find().toArray(function(err, result) {
+            if (err) throw err;
+            console.log(result)
+            db.close();
+        });
+      });
+}
+
 
 //post end point
 app.post("/logmeinplease", (req, res) => {
@@ -55,7 +71,7 @@ app.post("/logmeinplease", (req, res) => {
                 
             } else {
                 console.log("No users");
-                res.send(400)
+                res.sendStatus(400)
             }
             db.close()
         })
@@ -85,8 +101,12 @@ app.post("/signmeupplease", (req, res) => {
                 })
             }
             db.close()
-        })
-       
+        }) 
     })
+})
 
+
+
+app.post("/changethetimeplease", (req, res) => {
+    
 })

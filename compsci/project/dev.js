@@ -1,5 +1,5 @@
 var MongoClient = require('mongodb').MongoClient;
-const url = "mongodb+srv://Admin:Qwerty123@programmingproject.ygawp.mongodb.net/users?retryWrites=true&w=majority"
+var url = "mongodb://localhost:27017/mydb";
 
 MongoClient.connect(url, function(err, db) {
     if (err) throw err;
@@ -11,3 +11,10 @@ MongoClient.connect(url, function(err, db) {
         db.close()
     })
 });
+
+/*
+MongoClient.connect(url, { useUnifiedTopology: true }, function(err, db) {
+  if (err) throw err;
+  console.log("Database created/connected");
+  db.close();
+});*/

@@ -1,5 +1,6 @@
+
 let signUpButton = document.getElementById("signUpButton");
-let signUpPassword2 = document.getElementById("password2")
+let signUpPassword2 = document.getElementById("password2");
 
 signUpPassword2.addEventListener("keypress", function(e) {
     if (e.key == "Enter") {
@@ -30,6 +31,9 @@ function signUp() {
         fetch("/signmeupplease", {method: "POST", headers: headers, body: data})
         .then(function(response) {
             console.log(response)
+            if (response.status == 500) {
+                document.getElementById("error").style.visibility = "visible"
+            }
         })
     }
 }
