@@ -93,7 +93,7 @@ app.post("/signmeupplease", (req, res) => {
                 console.log("Username taken")
                 res.sendStatus(500)
             } else {
-                let newUser = { "username" : req.body.username, "password" : req.body.password, "theme" : "light", "time": "days", "paused": true, "stocks": 0, "money": 1000}
+                let newUser = { "username" : req.body.username, "password" : req.body.password, "theme" : "light", "time": "days", "paused": true, "stocks": 10, "money": 1000}
                 users.collection("accounts").insertOne(newUser, function(err, res) {
                     if (err) throw err;
                     console.log("new user added")
@@ -105,7 +105,60 @@ app.post("/signmeupplease", (req, res) => {
     })
 })
 
+app.post("/sell", (req, res) => {
+    let amount = req.body.amount;
+    console.log(amount)
+    if(checkInt(amount)) {
+        //continue with transaction
+        console.log("int")
+        amount = parseInt(amount, 10)
 
+        let seshValue = req.body.cookie
+        seshValue = seshValue.replace("sesh=", "") 
+        let buff = new Buffer(seshValue, "base64");
+        let decoded = buff.toString("ascii")
+
+        let index = decoded.lastIndexOf(":")
+        let name = decoded.replace(decoded.substring(index), "")
+        console.log(name)
+
+
+        MongoClient.connect(url, function(err, db) {
+            if (err) throw err;
+            var users = db.db("users")
+                users.collection("accounts").find({username: name}).toArray(function (err, result) {
+                    if (err) throw err;
+
+                    if(result.length==1) {
+                        console.log(result)
+                        let currentStocksOwned = result[0].stocks
+                        if (currentStocksOwned < amount) {
+                            //return error
+                            console.log("you do not own enough stocks")
+                        } else {
+                            let newStocksOwned = currentStocksOwned - amount
+                            users.collection("accounts").updateOne({username:name}, {$set: {stocks: newStocksOwned}})
+                            //remember to figure out how much they would make, add it, then remove this message
+                        }
+
+                    } else {
+                        console.log("rare error where the user's name cannot be found in the table")
+                    }
+                })
+        })
+
+
+    } else {
+        //give client error
+        console.log("not an int")
+    }
+})
+
+function checkInt(value) {
+    value = value.trim()
+    value = parseInt(value, 10)
+    return Number.isInteger(value)
+}
 
 app.post("/changethetimeplease", (req, res) => {
     
