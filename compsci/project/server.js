@@ -1,7 +1,5 @@
 //Importing modules
-const fs = require("fs");
 const express = require("express");
-const http = require("http");
 const app = express();
 const path = require("path");
 const MongoClient = require("mongodb").MongoClient;
@@ -51,6 +49,7 @@ function printDB() {
       });
 }
 
+//----------------------------------------------------------------------------------------------------------------
 
 //post end point
 app.post("/logmeinplease", (req, res) => {
@@ -82,6 +81,8 @@ function createCookie(username, password) {
     return Buffer.from(username + ":" + password).toString('base64')
 }
 
+//---------------------------------------------------------------------------------------------------------------------
+
 app.post("/signmeupplease", (req, res) => {
     MongoClient.connect(url, function(err, db) {
         if (err) throw err
@@ -105,6 +106,9 @@ app.post("/signmeupplease", (req, res) => {
     })
 })
 
+
+//-----------------------------------------------------------------------------------------------------------------
+
 app.post("/sell", (req, res) => {
     let amount = req.body.amount;
     console.log(amount)
@@ -113,6 +117,7 @@ app.post("/sell", (req, res) => {
         console.log("int")
         amount = parseInt(amount, 10)
 
+        //get session cookie value and extract username from it
         let seshValue = req.body.cookie
         seshValue = seshValue.replace("sesh=", "") 
         let buff = new Buffer(seshValue, "base64");
@@ -122,23 +127,27 @@ app.post("/sell", (req, res) => {
         let name = decoded.replace(decoded.substring(index), "")
         console.log(name)
 
-
+        
         MongoClient.connect(url, function(err, db) {
             if (err) throw err;
             var users = db.db("users")
                 users.collection("accounts").find({username: name}).toArray(function (err, result) {
                     if (err) throw err;
-
+                    
                     if(result.length==1) {
                         console.log(result)
                         let currentStocksOwned = result[0].stocks
+                        
+                        //check if user has correct amount of stocks
                         if (currentStocksOwned < amount) {
                             //return error
+                            res.status(601).json()
                             console.log("you do not own enough stocks")
                         } else {
                             let newStocksOwned = currentStocksOwned - amount
                             users.collection("accounts").updateOne({username:name}, {$set: {stocks: newStocksOwned}})
                             //remember to figure out how much they would make, add it, then remove this message
+                            //remember to visually update the users balance/stocks
                         }
 
                     } else {
@@ -151,6 +160,7 @@ app.post("/sell", (req, res) => {
     } else {
         //give client error
         console.log("not an int")
+        res.status(701).json()
     }
 })
 
@@ -160,6 +170,68 @@ function checkInt(value) {
     return Number.isInteger(value)
 }
 
+//------------------------------------------------------------------------------------------------------------------------
+
 app.post("/changethetimeplease", (req, res) => {
     
+})
+
+//-------------------------------------------------------------------------------------------------------------------------
+
+app.post("/buy", (req, res) => {
+    let amount = req.body.amount;
+    console.log(amount)
+    if(checkInt(amount)) {
+        //continue with transaction
+        console.log("int")
+        amount = parseInt(amount, 10)
+
+        //get session cookie value and extract username from it
+        let seshValue = req.body.cookie
+        seshValue = seshValue.replace("sesh=", "") 
+        let buff = new Buffer(seshValue, "base64");
+        let decoded = buff.toString("ascii")
+
+        let index = decoded.lastIndexOf(":")
+        let name = decoded.replace(decoded.substring(index), "")
+        console.log(name)
+
+        
+        MongoClient.connect(url, function(err, db) {
+            if (err) throw err;
+            var users = db.db("users")
+                users.collection("accounts").find({username: name}).toArray(function (err, result) {
+                    if (err) throw err;
+                    
+                    if(result.length==1) {
+                        console.log(result)
+                        let currentMoney = result[0].money
+                        
+                        //GET THE DEFINITION OF PRICE HERE, amount*price
+
+                        //check if user has correct amount of money
+                        if (currentMoney < price) {
+                            //return error
+                            res.status(602).json()
+                            console.log("you do not own enough money")
+                        } else {
+                            let newStocksOwned = currentStocksOwned + amount
+                            let newMoney = currentMoney - price
+                            users.collection("accounts").updateOne({username:name}, {$set: {stocks: newStocksOwned, money : newMoney}})
+                            //remember to figure out how much they would make, add it, then remove this message
+                            //remember to visually update the users balance/stocks
+                        }
+
+                    } else {
+                        console.log("rare error where the user's name cannot be found in the table")
+                    }
+                })
+        })
+
+
+    } else {
+        //give client error
+        console.log("not an int")
+        res.status(702).json()
+    }
 })
