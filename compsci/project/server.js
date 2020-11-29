@@ -8,6 +8,7 @@ const bodyParser = require('body-parser')
 let db;
 //const url = "mongodb+srv://Admin:Qwerty123@programmingproject.ygawp.mongodb.net/users?retryWrites=true&w=majority"
 const url = "mongodb://localhost:27017/mydb";
+const APIkey = "51ETLGNY1DRMVLPR"
 
 printDB();
 
@@ -167,7 +168,7 @@ app.post("/sell", (req, res) => {
 function checkInt(value) {
     value = value.trim()
     value = parseInt(value, 10)
-    return Number.isInteger(value)
+    return Number.isInteger(Math.abs(value))
 }
 
 //------------------------------------------------------------------------------------------------------------------------
@@ -235,3 +236,9 @@ app.post("/buy", (req, res) => {
         res.status(702).json()
     }
 })
+
+//-------------------------------------------------------------------------------------------------------------
+
+function GetAPIdata() {
+    window.fetch
+}
