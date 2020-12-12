@@ -173,9 +173,8 @@ function checkInt(value) {
 
 //------------------------------------------------------------------------------------------------------------------------
 
-app.post("/changethetimeplease", (req, res) => {
-    
-})
+
+
 
 //-------------------------------------------------------------------------------------------------------------------------
 
@@ -240,5 +239,45 @@ app.post("/buy", (req, res) => {
 //-------------------------------------------------------------------------------------------------------------
 
 function GetAPIdata() {
-    window.fetch
+    https.get("https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=IBM&apikey=" + APIkey, (response) => {
+  let data = ""
+  let bigData = ""
+  
+  response.on("data", (chunk) => {
+    data += chunk
+  })
+
+  response.on("end", () => {
+    bigData = JSON.parse(data)["Time Series (Daily)"]
+    for (let day in bigData) {
+      delete bigData[day]["1. open"]
+      delete bigData[day]["2. high"]
+      delete bigData[day]["3. low"]
+      delete bigData[day]["5. volume"]
+    }
+
+    let dataArray =[]
+    for (let i in bigData) {
+      console.log(i)
+      dataArray.push({[i] : bigData[i]["4. close"]})
+    }
+
+    console.log(dataArray)
+
+    MongoClient.connect(url, function(err, db) {
+      if (err) throw err;
+      let users = db.db("users");
+      users.collection("stockData").insertMany(dataArray, function(err, res) {
+          if (err) throw err;
+          console.log("insrted")
+          db.close()
+      })
+  });
+  })
+  
+}).on("error", (err) => {
+  console.log(err)
+})
+
+
 }

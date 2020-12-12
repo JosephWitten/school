@@ -45,7 +45,7 @@ https.get("https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=I
     let dataArray =[]
     for (let i in bigData) {
       console.log(i)
-      dataArray.push({i : bigData[i]["4. close"]})
+      dataArray.push({[i] : bigData[i]["4. close"]})
     }
 
     console.log(dataArray)
