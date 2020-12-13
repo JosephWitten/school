@@ -12,6 +12,8 @@ MongoClient.connect(url, function(err, db) {
     })
 });
 
+
+
 /*
 MongoClient.connect(url, { useUnifiedTopology: true }, function(err, db) {
   if (err) throw err;
@@ -22,7 +24,7 @@ const APIkey = "51ETLGNY1DRMVLPR"
 const { constants } = require('buffer');
 const https = require("https");
 
-https.get("https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=IBM&apikey=" + APIkey, (response) => {
+https.get("https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=IBM&outputsize=full&apikey=" + APIkey, (response) => {
   let data = ""
   let bigData = ""
   
@@ -40,12 +42,17 @@ https.get("https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=I
     }
 
     
-    //bigData = Object.values(bigData)
+    let counter = 0
+    for(let i in bigData) {
+      counter++
+    }
+
+    console.log(counter)
 
     let dataArray =[]
     for (let i in bigData) {
-      console.log(i)
-      dataArray.push({[i] : bigData[i]["4. close"]})
+      dataArray.push({"counter" : counter, "date" : i, "value" : bigData[i]["4. close"]})
+      counter--;
     }
 
     console.log(dataArray)

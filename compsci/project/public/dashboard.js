@@ -7,6 +7,8 @@ let buyField = document.getElementById("buy")
 let buyBtn = document.getElementById("buybtn")
 let error = document.getElementById("error")
 
+updateGraph()
+
 //----------------------------------------------------------
 
 if (document.cookie.indexOf('sesh=') == -1) {
@@ -15,25 +17,48 @@ if (document.cookie.indexOf('sesh=') == -1) {
 
 //----------------------------------------------------------
 
+dashboardPlay.addEventListener("click", function (e) {
+    updateGraph();
+});
+
 function updateGraph() {
     let body = JSON.stringify({"sesh": document.cookie})
-    fetch("/changethetimeplease", {method: "POST", headers: {"Content-Type" : "application/json"}, body: body})
+    fetch("/nextDayPlease", {method: "POST", headers: {"Content-Type" : "application/json"}, body: body})
+    .then(res => res.json())
     .then(function(response) {
+        console.log(response)
+        console.log(response.body);
+
+        let labelArray = response.labels
+        let dataSetArray = response.dataSet
+
         let ctx = document.getElementById('myChart').getContext('2d');
         let myLineChart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                labels: labelArray,
                 datasets: [{
-                    label: 'My First dataset',
-                    backgroundColor: 'rgb(255, 99, 132)',
-                    borderColor: 'rgb(255, 255, 255)',
-                    data: [0, 10, 5, 2, 20, 30, 45]
+                    label: 'Stock Value',
+                    backgroundColor: 'rgb(143, 181, 242)',
+                    borderColor: 'rgb(32, 32, 32)',
+                    data: dataSetArray
                 }]
             },
-            options: {}
+            options: {
+                animation: {
+                    duration: 0
+                }
+                /*scales : {
+                    yAxes : [ {
+                        ticks : {
+                            suggestedMin : ,
+                            suggestedMax : ,
+                        }
+                    }]
+                }*/
+            }
         });
-    })
+    }).catch(err => console.log(err))
 }
 
 

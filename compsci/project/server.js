@@ -3,14 +3,17 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const MongoClient = require("mongodb").MongoClient;
-const cors = require("cors")
-const bodyParser = require('body-parser')
+const cors = require("cors");
+const { count } = require("console");
 let db;
 //const url = "mongodb+srv://Admin:Qwerty123@programmingproject.ygawp.mongodb.net/users?retryWrites=true&w=majority"
 const url = "mongodb://localhost:27017/mydb";
 const APIkey = "51ETLGNY1DRMVLPR"
 
-printDB();
+//printDB();
+
+
+
 
 //Setting cross origin headers
 app.use(cors())
@@ -18,11 +21,7 @@ app.use(cors())
 //Giving access to the public folder
 app.use(express.static("public"))
 
-//type handling for the client side fetch request
-app.use( bodyParser.json() );     
-app.use(bodyParser.urlencoded({     
-  extended: true
-})); 
+//type handling for the client side fetch request 
 app.use(express.json());
 
 
@@ -49,6 +48,12 @@ function printDB() {
         });
       });
 }
+
+//----------------------------------------------------------------------------------------------------------------
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
 
 //----------------------------------------------------------------------------------------------------------------
 
@@ -95,7 +100,7 @@ app.post("/signmeupplease", (req, res) => {
                 console.log("Username taken")
                 res.sendStatus(500)
             } else {
-                let newUser = { "username" : req.body.username, "password" : req.body.password, "theme" : "light", "time": "days", "paused": true, "stocks": 10, "money": 1000}
+                let newUser = { "username" : req.body.username, "password" : req.body.password, "theme" : "light", "time": "days", "paused": true, "stocks": 10, "money": 1000, "counter" : 1}
                 users.collection("accounts").insertOne(newUser, function(err, res) {
                     if (err) throw err;
                     console.log("new user added")
@@ -173,8 +178,62 @@ function checkInt(value) {
 
 //------------------------------------------------------------------------------------------------------------------------
 
+app.post("/nextDayPlease", (req, res) => {
+
+    //get session cookie value and extract username from it
+    let seshValue = req.body.sesh
+    seshValue = seshValue.replace("sesh=", "") 
+    let buff = new Buffer(seshValue, "base64");
+    let decoded = buff.toString("ascii")
+
+    let index = decoded.lastIndexOf(":")
+    let name = decoded.replace(decoded.substring(index), "")
+
+    res.setHeader('Content-Type', 'application/json');
 
 
+    let counter = -1
+    
+    let labels = []
+    let dataSet = []
+
+
+    MongoClient.connect(url, async function(err, db) {
+        if (err) throw err;
+        var users = db.db("users")
+
+        users.collection("accounts").find({username: name}).toArray(function (err, result) {
+                if (err) throw err;
+
+                if (result.length==1) {
+                    counter = result[0].counter
+                } else {
+                    console.log("rare error where the user's name cannot be found in the table")
+                }
+        })
+
+        await sleep(100);
+        
+        for (let i = counter; i < counter+7; i++) {
+            users.collection("stockData").find({counter: i}).toArray(function (err, result) {
+                labels.push(result[0].date)
+                dataSet.push(result[0].value)
+            })
+            await sleep(100)
+        }
+        
+        await sleep(100);
+
+        users.collection("accounts").findOneAndUpdate({username: name}, { $set: {"counter" : counter + 1}}, {upsert : true})
+
+        await sleep(100);
+
+
+        let responseObject = {"labels" : labels, "dataSet" : dataSet } 
+
+        res.json(responseObject)
+    })
+})
 
 //-------------------------------------------------------------------------------------------------------------------------
 
@@ -258,11 +317,8 @@ function GetAPIdata() {
 
     let dataArray =[]
     for (let i in bigData) {
-      console.log(i)
       dataArray.push({[i] : bigData[i]["4. close"]})
     }
-
-    console.log(dataArray)
 
     MongoClient.connect(url, function(err, db) {
       if (err) throw err;
@@ -273,11 +329,11 @@ function GetAPIdata() {
           db.close()
       })
   });
-  })
   
-}).on("error", (err) => {
+  
+    }).on("error", (err) => {
   console.log(err)
+    })
 })
-
 
 }
