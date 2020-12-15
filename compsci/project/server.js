@@ -5,10 +5,12 @@ const path = require("path");
 const MongoClient = require("mongodb").MongoClient;
 const cors = require("cors");
 const { count } = require("console");
+const { copyFileSync } = require("fs");
 let db;
 //const url = "mongodb+srv://Admin:Qwerty123@programmingproject.ygawp.mongodb.net/users?retryWrites=true&w=majority"
 const url = "mongodb://localhost:27017/mydb";
 const APIkey = "51ETLGNY1DRMVLPR"
+let currentValue = -1
 
 //printDB();
 
@@ -143,17 +145,24 @@ app.post("/sell", (req, res) => {
                     if(result.length==1) {
                         console.log(result)
                         let currentStocksOwned = result[0].stocks
+                        let currentMoney = result[0].money
                         
                         //check if user has correct amount of stocks
                         if (currentStocksOwned < amount) {
                             //return error
-                            res.status(601).json()
+                            res.json({"error": "not enough stocks owned"})
                             console.log("you do not own enough stocks")
                         } else {
                             let newStocksOwned = currentStocksOwned - amount
-                            users.collection("accounts").updateOne({username:name}, {$set: {stocks: newStocksOwned}})
-                            //remember to figure out how much they would make, add it, then remove this message
+                            let profit = currentValue*amount
+                            let newMoney = currentMoney + profit
+                            users.collection("accounts").updateOne({username:name}, {$set: {stocks: newStocksOwned, money : newMoney}})
                             //remember to visually update the users balance/stocks
+                            let newVals = updateVals(name)
+                            newVals.then(function (result) {
+                                console.log(result)
+                                res.json(result)
+                            })
                         }
 
                     } else {
@@ -166,7 +175,7 @@ app.post("/sell", (req, res) => {
     } else {
         //give client error
         console.log("not an int")
-        res.status(701).json()
+        res.json({"error": "not an int"})
     }
 })
 
@@ -228,11 +237,73 @@ app.post("/nextDayPlease", (req, res) => {
 
         await sleep(100);
 
+        currentValue = dataSet[6]
 
         let responseObject = {"labels" : labels, "dataSet" : dataSet } 
 
         res.json(responseObject)
     })
+})
+
+//-------------------------------------------------------------------------------------------------------------------------
+
+async function updateVals(name) {
+    let stocks = -1
+    let money = -1
+
+    MongoClient.connect(url, function(err, db) {
+        if (err) throw err;
+        let users = db.db("users")
+        users.collection("accounts").find({username: name}).toArray(function (err, result) {
+            if (err) throw err;
+             if(result.length==1) {
+                console.log(result)
+
+                stocks = result[0].stocks
+                money = result[0].money
+
+
+             }  else {
+                console.log("rare error where the user's name cannot be found in the table")
+            }
+        })
+    })
+    await sleep(100)
+
+    let temp = {"stocks" : stocks, "money" : money}
+    
+    return temp
+}
+
+
+app.post("/updateVals", async (req, res) => {
+    
+    let stocks = -1
+    let money = -1
+
+    //get session cookie value and extract username from it
+    let seshValue = req.body.sesh
+    console.log(req.body.sesh)
+    seshValue = seshValue.replace("sesh=", "") 
+    let buff = new Buffer(seshValue, "base64");
+    let decoded = buff.toString("ascii")
+
+    let index = decoded.lastIndexOf(":")
+    let name = decoded.replace(decoded.substring(index), "")
+    console.log(name)
+
+    let temp = updateVals(name)
+    await sleep(100)
+    
+    temp.then(function(result) {
+        temp = result
+    })
+    await sleep(100)
+
+
+    res.json(temp)
+
+
 })
 
 //-------------------------------------------------------------------------------------------------------------------------
@@ -265,20 +336,25 @@ app.post("/buy", (req, res) => {
                     if(result.length==1) {
                         console.log(result)
                         let currentMoney = result[0].money
+                        let currentStocksOwned = result[0].stocks
                         
-                        //GET THE DEFINITION OF PRICE HERE, amount*price
+                        let price = amount*currentValue
 
                         //check if user has correct amount of money
                         if (currentMoney < price) {
                             //return error
-                            res.status(602).json()
+                            res.json({"error": "You do not have enough money"})
                             console.log("you do not own enough money")
                         } else {
                             let newStocksOwned = currentStocksOwned + amount
                             let newMoney = currentMoney - price
                             users.collection("accounts").updateOne({username:name}, {$set: {stocks: newStocksOwned, money : newMoney}})
-                            //remember to figure out how much they would make, add it, then remove this message
-                            //remember to visually update the users balance/stocks
+
+                            let newVals = updateVals(name)
+                            newVals.then(function (result) {
+                                console.log(result)
+                                res.json(result)
+                            })
                         }
 
                     } else {

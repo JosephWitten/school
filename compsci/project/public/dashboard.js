@@ -5,9 +5,10 @@ let sellBtn = document.getElementById("sellbtn");
 let sellField = document.getElementById("sell")
 let buyField = document.getElementById("buy")
 let buyBtn = document.getElementById("buybtn")
-let error = document.getElementById("error")
+let errorField = document.getElementById("error")
 
 updateGraph()
+updateVals()
 
 //----------------------------------------------------------
 
@@ -16,6 +17,19 @@ if (document.cookie.indexOf('sesh=') == -1) {
 }
 
 //----------------------------------------------------------
+
+function updateVals() {
+    let body = JSON.stringify({"sesh": document.cookie})
+    fetch("/updateVals", {method: "POST", headers: {"Content-Type" : "application/json"}, body: body})
+    .then(res => res.json())
+    .then(function(response) {
+        console.log(response)
+        document.getElementById("bal").innerHTML = response.money
+        document.getElementById("stockbal").innerHTML = response.stocks
+    })
+}
+
+//---------------------------------------------------------
 
 dashboardPlay.addEventListener("click", function (e) {
     updateGraph();
@@ -85,15 +99,19 @@ sellField.addEventListener("keypress", function (e) {
 })
 
 function sell() {
+    errorField.innerHTML = ""
     let value = document.getElementById("sell").value;
     let body = JSON.stringify({amount: value, cookie: document.cookie})
     fetch("/sell", {method: "POST", headers : {"Content-Type" : "application/json"}, body: body})
+    .then(res => res.json())
     .then(function(response) {
-        console.log(response.status)
-        if (response.status == 601) {
-            error.innerHTML = "You don't have enough stocks"
-        } else if (response.status == 701) {
-            error.innerHTML = "not valid input"
+        console.log(response)
+
+        if (response.error == null) {
+            document.getElementById("bal").innerHTML = response.money
+            document.getElementById("stockbal").innerHTML = response.stocks
+        } else {
+            errorField.innerHTML = response.error
         }
     })
 
@@ -109,15 +127,21 @@ buyField.addEventListener("keypress", function(e) {
 })
 
 function buy() {
+    errorField.innerHTML = ""
     let value = buyField.value;
     let body = JSON.stringify({amount: value, cookie: document.cookie})
     fetch("/buy", {method: "POST", headers: {"Content-Type" : "application/json"}, body:body})
+    .then(res => res.json())
     .then(function(response) {
-        if (response.status == 602) {
-            error.innerHTML = "not enough money"
-        } else if (response.status == 702) {
-            error.innerHTML = "not valid input"
+        console.log(response)
+
+        if (response.error == null) {
+            document.getElementById("bal").innerHTML = response.money
+            document.getElementById("stockbal").innerHTML = response.stocks
+        } else {
+            errorField.innerHTML = response.error
         }
+
     })
 }
 
